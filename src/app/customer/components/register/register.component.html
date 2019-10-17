@@ -1,3 +1,25 @@
-<p>
-  register works!
-</p>
+<div class="form">
+  <form class="form" [formGroup]="$form">
+    <mat-form-field>
+      <input matInput placeholder="Nombre" value=""  [formControl]="$nombre">
+      <span *ngIf="$nombre.invalid && $nombre.touched">Ingresar nombre</span>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Apellido" value="" [formControl]="$apellidos">
+      <span *ngIf="$apellidos.invalid && $apellidos.touched">Ingresar apellidos</span>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Edad" value="" [formControl]="$edad">
+        <span *ngIf="$edad.invalid && $edad.touched && !$edad.errors.pattern">Ingresar edad</span>
+        <span *ngIf="$edad.invalid && $edad.touched && $edad.errors.pattern">Ingresar solo numeros</span>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Fecha de nacimiento" [formControl]="$fechaNacimiento">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <div class="button">
+      <button mat-stroked-button (click)="onSubmit()">Basic</button>
+    </div>
+  </form>
+</div>

@@ -1,3 +1,19 @@
-<p>
-  list works!
-</p>
+<div class="wrap">
+    <div>
+      <label class="label">Promedio de edad:</label>
+      <span>{{promedio}}</span>
+      <span class="divider">|</span>
+      <label class="label">Desviacion estandar:</label>
+      <span>{{desvEstandar}}</span>
+    </div>
+    <hr/>
+    <mat-list>
+        <h3 mat-subheader>Clientes</h3>
+        <mat-list-item *ngFor="let customer of customers">
+          <p class="list-client"> {{customer.nombre + ' ' + customer.apellidos}} </p>
+          <a class="list-link" mat-stroked-button color="primary" [routerLink]="['/projection/cliente',customer.id]">projeccion</a>
+          <hr/>
+        </mat-list-item>
+    </mat-list>
+</div>
+

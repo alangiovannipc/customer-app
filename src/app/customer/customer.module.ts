@@ -3,12 +3,20 @@ import { CommonModule } from '@angular/common';
 
 import { CustomerRoutingModule } from './customer-routing.module';
 import * as fromCustomerComponents from './components/';
+import { MaterialModule } from 'app/material/material.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    CustomerRoutingModule
+    CustomerRoutingModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
+
   ],
-  declarations: [ ...fromCustomerComponents.customerComponents]
+  declarations: [ ...fromCustomerComponents.customerComponents],
+  exports: [ ...fromCustomerComponents.customerComponents]
 })
-export class CustomerModule { }
+export class CustomerModule {
+}
