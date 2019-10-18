@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '@customer/services/customer.service';
+import { ICustomer } from '@customer/interfaces/customer.interface';
+import { WrapMath } from 'app/libraries/wrap-math';
 
 @Component({
   selector: 'app-list',
@@ -9,11 +11,12 @@ import { CustomerService } from '@customer/services/customer.service';
 
 export class ListComponent implements OnInit {
 
-  public promedio = 14;
-  public desvEstandar = 15;
+  public average = 0;
+  public desvEstandar = 0;
   public customers: ICustomer[];
 
-  constructor(private _customerService: CustomerService)  {
+  constructor(
+    private _customerService: CustomerService) {
   }
 
   ngOnInit() {
@@ -22,23 +25,33 @@ export class ListComponent implements OnInit {
 
   getCustomers() {
     this._customerService.listCustomer().subscribe((res) => {
-      this.customers = [
-        {
-          id: 123456,
-          nombre: 'Alan ',
-          apellidos: 'Polar',
-          edad: 34,
-          fechaNacimiento: '07/04/1985'
-        },
-        {
-          id: 123456,
-          nombre: 'Jose ',
-          apellidos: 'Perez',
-          edad: 34,
-          fechaNacimiento: '07/04/1985'
-        }
-      ];
+      this.customers = this.parseData(res);
+      this.average = this.calculateAverageAge(this.customers);
+      this.desvEstandar = this.calculateStd(this.customers);
     });
+  }
+
+  parseData(firebaseData) {
+    return firebaseData.map((data) => {
+      return {
+        id: data.payload.doc.id,
+        nombre: data.payload.doc.data().nombre,
+        apellidos: data.payload.doc.data().apellidos ,
+        edad: parseInt(data.payload.doc.data().edad, 10) ,
+        fechaNacimiento: data.payload.doc.data().fechaNacimiento
+      };
+    });
+
+  }
+
+  calculateAverageAge(customers): any {
+    const ages = customers.map((customer) => customer.edad);
+    return WrapMath.average(ages).toFixed(3);
+  }
+
+  calculateStd(customers): any {
+    const ages = customers.map((customer) => customer.edad);
+    return WrapMath.std(ages).toFixed(3);
   }
 
 }
