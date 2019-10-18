@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { CustomerService } from '@customer/services/customer.service';
 import { Router } from '@angular/router';
+import { ICustomer } from '@customer/interfaces/customer.interface';
 
 @Component({
   selector: 'app-register',
@@ -57,10 +58,11 @@ export class RegisterComponent implements OnInit {
 
       console.log('request ', JSON.stringify(request));
 
-      this._customerService.saveCustomer(request).subscribe((res) => {
+      this._customerService.saveCustomer(request).then((res) => {
+        console.log('go to list');
         this._router.navigate([ '/list' ]);
       }, (error) => {
-        console.log('error');
+        console.log(error);
       });
   }
 

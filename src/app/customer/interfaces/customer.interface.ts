@@ -1,8 +1,8 @@
 export interface ICustomer {
-  id?: number;
+  id?: string;
   nombre: string;
   apellidos: string;
   edad: number;
-  fechaNacimiento: string;
+  fechaNacimiento: any;
 }
 

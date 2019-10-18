@@ -1,3 +1,28 @@
-<p>
-  projection works!
-</p>
+<div class="loading" *ngIf="!customer">Cargando usuario.....</div>
+<ng-container *ngIf="customer">
+    <table mat-table  class="mat-elevation-z8">
+        <tbody>
+          <tr>
+            <th mat-header-cell> Nombre: </th>
+            <td mat-cell > {{customer.nombre}} </td>
+          </tr>
+          <tr>
+            <th mat-header-cell> Apellidos: </th>
+            <td mat-cell > {{customer.apellidos}} </td>
+          </tr>
+          <tr>
+              <th mat-header-cell> Edad: </th>
+              <td mat-cell > {{customer.edad}} </td>
+          </tr>
+          <tr>
+              <th mat-header-cell> Fecha de Nacimiento: </th>
+              <td mat-cell > {{ customer.fechaNacimiento.seconds * 1000 | date:'MM/dd/yyyy' }} </td>
+          </tr>
+          <tr>
+              <th mat-header-cell> Fecha probable de muerte: </th>
+              <td mat-cell > {{ dateDead | date:'MM/dd/yyyy' }} </td>
+          </tr>
+        </tbody>
+      </table>
+</ng-container>
+
